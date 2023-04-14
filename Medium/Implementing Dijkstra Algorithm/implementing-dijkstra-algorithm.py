@@ -1,4 +1,5 @@
 import heapq
+from collections import deque
 class Solution:
 
     #Function to find the shortest distance of all the vertices
@@ -7,13 +8,16 @@ class Solution:
         #code here
         dist=[float("inf") for i in range(V)]
         dist[S]=0
-        pq=[(0,S)]
+        pq=deque()
+        pq.append((0,S))
+        # pq=[(0,S)]#({dist,startnode})
         while pq:
-            dis,node=heapq.heappop(pq)
+            dis,node=pq.popleft()#heapq.heappop(pq)
             for nei in adj[node]:
                 if dis+nei[1]<dist[nei[0]]:
                     dist[nei[0]]=dis+nei[1]
-                    heapq.heappush(pq,(dist[nei[0]],nei[0]))
+                    # heapq.heappush
+                    pq.append((dist[nei[0]],nei[0]))
         return dist
             
         
