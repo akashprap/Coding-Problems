@@ -1,15 +1,18 @@
 #User function Template for python3
-mod=10**9+7
 class Solution:
     def nCr(self, n, r):
-        if r > n:
-            return 0
-        nu,de= 1, 1
-        for i in range(r):
-            nu = (nu * (n-i)) % mod
-            de = (de * (i+1)) % mod
-        de_in = pow(de, mod-2, mod)
-        return (nu * de_in) % mod
+        MOD = int(1e9) + 7
+
+        dp = [[0] * (r + 1) for _ in range(n + 1)]
+
+        for i in range(n + 1):
+            dp[i][0] = 1
+
+        for i in range(1, n + 1):
+            for j in range(1, min(i, r) + 1):
+                dp[i][j] = (dp[i - 1][j] + dp[i - 1][j - 1]) % MOD
+
+        return dp[n][r]
 
 
 
