@@ -1,39 +1,31 @@
 #User function Template for python3
+
 from collections import deque
-
 #Function to return a list containing the level order traversal in spiral form.
-def solve(root,flag,res):
-    q=deque([root])
-    while q:
-        l=len(q)
-        temp=[]
-        for i in range(l):
-            node=q.popleft()
-            if flag!=0:
-                res.append(node.data)
-            else:
-                temp.append(node.data)
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-
-        temp.reverse()
-        for i in temp:
-            res.append(i)
-       # res.append(temp)
-        flag=flag^1
-    return res
 def findSpiral(root):
-    if not root:
-        return []
-    res=[]
-    flag=0
-    solve(root,flag,res)
-    return res
-            
-        
     # Code here
+    q=deque()
+    q.append((root,1))
+    ans=[]
+    while q:
+        temp=[]
+        f=0
+        for i in range(len(q)):
+            node,val=q.popleft()
+            if val:
+                f=1
+            temp.append(node.data)
+            if node.left:
+                q.append((node.left,1-val))
+            if node.right:
+                q.append((node.right,1-val))
+        if f:
+            temp.reverse()
+            ans+=temp
+        else:
+            ans+=temp
+    return ans
+    
 
 
 
