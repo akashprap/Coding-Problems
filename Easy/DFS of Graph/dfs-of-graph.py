@@ -1,25 +1,25 @@
 #User function Template for python3
 
 class Solution:
-    def dfs(self,start,adj,vis,ans):
-        vis[start]=1
-        ans.append(start)
-        for node in adj[start]:
-            if not vis[node]:
-                vis[node]=1
-                self.dfs(node,adj,vis,ans)
     
     #Function to return a list containing the DFS traversal of the graph.
-    def dfsOfGraph(self, V, adj):
+    def dfsOfGraph(self,n, adj):
         # code here
-        visited=[0]*(V+1)
+        def dfs(node):
+            if not vis[node]:
+                ans.append(node)
+                vis[node]=1
+                for nei in adj[node]:
+                    dfs(nei)
         ans=[]
-        self.dfs(0,adj,visited,ans)
+        vis=[0]*n
+        dfs(0)
         return ans
 
 
 #{ 
  # Driver Code Starts
+
 if __name__ == '__main__':
     T=int(input())
     while T>0:
