@@ -5,19 +5,14 @@ class Solution:
     def leaders(self, A, N):
         #Code here
         ans=[]
+        ans.append(A[-1])
         maxi=A[-1]
-        for i in range(N-1,-1,-1):
-            if i==N-1:
+        for i in range(N-2,-1,-1):
+            if A[i]>=maxi:
                 ans.append(A[i])
-            else:
-                if A[i]>=maxi:
-                    ans.append(A[i])
-                    maxi=A[i]
-                else:
-                    continue
-        ans.reverse()
-        return ans
-                
+                maxi=A[i]
+        return ans[::-1]
+            
 
 
 #{ 
