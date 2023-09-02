@@ -1,17 +1,15 @@
 class Solution:
-    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
-        d = set(dictionary)
-
-        n = len(s)
-
-        dp = [0] * (n + 1)
-        for i in range(1, n + 1):
-            dp[i] = dp[i - 1] + 1
-
-            for j in range(i, 0, -1):
-                temp= s[j - 1:i]
-
-                if temp in d:
-                    dp[i] = min(dp[i], dp[j - 1])
-
-        return dp[n]
+    def f(self,i,s,dset,dp):
+        if i==len(s):
+            return 0
+        if i in dp:
+            return dp[i]
+        # ans=float('inf')
+        ans=1+self.f(i+1,s,dset,dp)
+        for j in range(i,len(s)):
+            if s[i:j+1] in dset:
+                ans=min(ans,self.f(j+1,s,dset,dp))
+        dp[i]=ans
+        return ans
+    def minExtraChar(self, s: str, dic: List[str]) -> int:
+        return self.f(0,s,set(dic),{})
