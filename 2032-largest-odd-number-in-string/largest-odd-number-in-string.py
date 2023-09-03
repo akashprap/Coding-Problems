@@ -11,4 +11,4 @@ class Solution:
                     ans+=i
         if ans=="":
             return ""
-        return str(ans)[::-1]
+        return (ans)[::-1]
