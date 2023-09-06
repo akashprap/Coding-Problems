@@ -8,17 +8,15 @@ class Solution:
         parts = n // k
         extra = n % k
         res = []
-        ptr = head
+        cur = head
         for i in range(k):
-            if not ptr:
-                res.append(None)
-                continue
-            res.append(ptr)
-            size = parts + (1 if extra > 0 else 0)
-            extra -= 1
-            for j in range(size - 1):
-                ptr = ptr.next
-            temp = ptr.next
-            ptr.next = None
-            ptr = temp
+            size = parts + (1 if i < extra else 0)
+            dummy = ListNode(None)
+            current = dummy
+            for j in range(size):
+                current.next = ListNode(cur.val)
+                current = current.next
+                if cur:
+                    cur = cur.next
+            res.append(dummy.next)
         return res
