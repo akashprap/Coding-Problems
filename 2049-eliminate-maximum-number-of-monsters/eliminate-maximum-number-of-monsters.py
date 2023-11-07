@@ -3,7 +3,6 @@ class Solution:
         time=[(i/j) for i,j in zip(dist,speed)]
         time.sort()
         c=1
-        p=0
         ans=1
         time=time[1:]
         while time:
