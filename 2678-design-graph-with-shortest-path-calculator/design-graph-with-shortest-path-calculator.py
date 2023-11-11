@@ -1,38 +1,31 @@
-class Graph:
+import heapq
 
+class Graph:
     def __init__(self, n: int, edges: List[List[int]]):
-        self.adj=defaultdict(list)
-        self.n=n
-        self.dist=[float("inf")]*n
-        for a,b,c in edges:
-            self.adj[a].append((b,c))
+        self.adj = defaultdict(list)
+        self.n = n
+        for a, b, c in edges:
+            self.adj[a].append((b, c))
 
     def addEdge(self, edge: List[int]) -> None:
-        a,b,c=edge
-        self.adj[a].append((b,c))
-        
+        a, b, c = edge
+        self.adj[a].append((b, c))
 
     def shortestPath(self, node1: int, node2: int) -> int:
-        self.dist=[float("inf")]*self.n
-        self.dist[node1]=0
-        pq=deque()
-        pq.append((0,node1))
+        dist = [float("inf")] * self.n
+        dist[node1] = 0
+        pq = [(0, node1)]
+        visited = set()
+
         while pq:
-            dis,node =pq.popleft()
-            for adjnode,weight in self.adj[node]:
-                newdist=dis+weight
-                if newdist<self.dist[adjnode]:
-                    self.dist[adjnode]=newdist
-                    pq.append((newdist,adjnode))
-        if self.dist[node2]==float("inf"):
-            return -1
-        else:
-            return self.dist[node2]
-                
-        
+            dis, node = heapq.heappop(pq)
+            if node in visited:
+                continue
+            visited.add(node)
+            for adjnode, weight in self.adj[node]:
+                newdist = dis + weight
+                if newdist < dist[adjnode]:
+                    dist[adjnode] = newdist
+                    heapq.heappush(pq, (newdist, adjnode))
 
-
-# Your Graph object will be instantiated and called as such:
-# obj = Graph(n, edges)
-# obj.addEdge(edge)
-# param_2 = obj.shortestPath(node1,node2)
+        return dist[node2] if dist[node2] != float("inf") else -1
