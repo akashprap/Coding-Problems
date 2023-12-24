@@ -15,16 +15,16 @@ class Solution:
                     continue
                 else:
                     ans1+=1
-        for i in range(n):
-            # 10101010
-            if i%2!=0:
-                if s[i]=="0":
-                    continue
-                else:
-                    ans2+=1
-            else:
-                if s[i]=="1":
-                    continue
-                else:
-                    ans2+=1
-        return min(ans1,ans2)
+        # for i in range(n):
+        #     # 10101010
+        #     if i%2!=0:
+        #         if s[i]=="0":
+        #             continue
+        #         else:
+        #             ans2+=1
+        #     else:
+        #         if s[i]=="1":
+        #             continue
+        #         else:
+        #             ans2+=1
+        return min(ans1,n-ans1)
